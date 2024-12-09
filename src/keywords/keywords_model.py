@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     # Extract keywords
     print("Extracting keywords...")
-    keywords = keyword_model.extract_keywords(sample_text, num_keywords=5)
+    keywords = keyword_model.extract_keywords(sample_text, n_keywords=5)
     # print("Default Keywords:", keywords)
 
     # Get synonyms
@@ -102,6 +102,6 @@ if __name__ == "__main__":
 
     ###### ALL IN ONE STEP ######
     keywords_with_synonyms = keyword_model.extract_keywords_and_synonyms(
-        sample_text, n_synonyms=3
+        sample_text, n_keywords=5, n_synonyms=3
     )
     print(keywords_with_synonyms)
