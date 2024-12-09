@@ -26,20 +26,18 @@ def load_models():
     # DISTILBERT
     print("\nLoading DistilBERT model...")
     ner_model = NERModel(
-        MODEL_NAME_DISTILBERT, MODEL_PATH_DISTILBERT, TOKENIZER_PATH_DISTILBERT
+        MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT
     )
     print("Loaded!")
 
     # BART
     print("\nLoading BART model...")
-    sum_model = SummarizationModel(
-        MODEL_NAME_BART, MODEL_PATH_BART, TOKENIZER_PATH_BART
-    )
+    sum_model = SummarizationModel(MODEL_NAME_BART, MODEL_NAME_BART, MODEL_NAME_BART)
     print("Loaded!")
 
     print("\nLoading Pegasus model...")
     para_model = ParaphrasingModel(
-        MODEL_NAME_PEGASUS, MODEL_PATH_PEGASUS, TOKENIZER_PATH_PEGASUS
+        MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS
     )
     print("Loaded!")
 
