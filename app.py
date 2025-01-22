@@ -4,7 +4,7 @@ from PIL import Image
 import re
 import pandas as pd
 from nltk.stem import WordNetLemmatizer
-
+import logging
 from src.keywords.keywords_model import KeywordModel
 from src.ner.ner_model import NERModel
 from src.summarization.summarization_model import SummarizationModel
@@ -18,30 +18,37 @@ from src.config import *
 @st.cache_resource
 def load_models():
 
-    # KEYBERT
-    print("Loading KeyBERT model...")
-    keyword_model = KeywordModel()
-    print("Loaded!")
+    try:
+        # KEYBERT
+        print("Loading KeyBERT model...")
+        keyword_model = KeywordModel()
+        print("Loaded!")
 
-    # DISTILBERT
-    print("\nLoading DistilBERT model...")
-    ner_model = NERModel(
-        MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT
-    )
-    print("Loaded!")
+        # DISTILBERT
+        print("\nLoading DistilBERT model...")
+        ner_model = NERModel(
+            MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT, MODEL_NAME_DISTILBERT
+        )
+        print("Loaded!")
 
-    # BART
-    print("\nLoading BART model...")
-    sum_model = SummarizationModel(MODEL_NAME_BART, MODEL_NAME_BART, MODEL_NAME_BART)
-    print("Loaded!")
+        # BART
+        print("\nLoading BART model...")
+        sum_model = SummarizationModel(
+            MODEL_NAME_BART, MODEL_NAME_BART, MODEL_NAME_BART
+        )
+        print("Loaded!")
 
-    print("\nLoading Pegasus model...")
-    para_model = ParaphrasingModel(
-        MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS
-    )
-    print("Loaded!")
+        print("\nLoading Pegasus model...")
+        para_model = ParaphrasingModel(
+            MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS, MODEL_NAME_PEGASUS
+        )
+        print("Loaded!")
 
-    return keyword_model, ner_model, sum_model, para_model
+        return keyword_model, ner_model, sum_model, para_model
+
+    except Exception as e:
+        logging.error(f"Error loading model: {str(e)}")
+        return None, None, None, None
 
 
 keyword_model, ner_model, sum_model, para_model = load_models()
