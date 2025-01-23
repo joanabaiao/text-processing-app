@@ -9,8 +9,10 @@ from src.keywords.keywords_model import KeywordModel
 from src.ner.ner_model import NERModel
 from src.summarization.summarization_model import SummarizationModel
 from src.paraphrasing.paraphrasing_model import ParaphrasingModel
-
+import nltk
 from src.config import *
+
+nltk.download("wordnet")
 
 ################################################################################################
 
