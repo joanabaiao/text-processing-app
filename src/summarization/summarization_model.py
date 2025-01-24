@@ -19,19 +19,22 @@ class SummarizationModel:
 
         print("Model loaded!")
 
-    def summarize_text(self, text, length_ratio=0.5, max_length_cap=200):
+    def summarize_text(self, text, length_ratio=0.7, threshold_length=20):
 
         input_length = len(text.split())
-        min_length = max(10, int(input_length * length_ratio * 0.5))
-        max_length = min(max_length_cap, int(input_length * length_ratio))
+        if input_length < threshold_length:
+            return text
 
+        # min_length = max(10, int(input_length * length_ratio * 0.5))
+        max_summary_length = max(threshold_length, int(input_length * length_ratio))
         inputs = self.tokenizer([text], return_tensors="pt")
 
         summary_ids = self.model.generate(
             inputs["input_ids"],
-            max_length=128,
+            max_length=max_summary_length,
+            # max_length=128,
             # min_length=min_length,
-            length_penalty=1.5,
+            length_penalty=1,
             num_beams=4,
             early_stopping=True,
         )
@@ -42,7 +45,8 @@ class SummarizationModel:
 
 
 if __name__ == "__main__":
-    text = "The site of the Dolomites comprises a mountain range in the northern Italian Alps, numbering 18 peaks which rise to above 3,000 metres and cover 141,903 ha. It features some of the most beautiful mountain landscapes anywhere, with vertical walls, sheer cliffs and a high density of narrow, deep and long valleys. A serial property of nine areas that present a diversity of spectacular landscapes of international significance for geomorphology marked by steeples, pinnacles and rock walls, the site also contains glacial landforms and karst systems. It is characterized by dynamic processes with frequent landslides, floods and avalanches. The property also features one of the best examples of the preservation of Mesozoic carbonate platform systems, with fossil records."
+    text = "Trump has also ordered the declassification of files relating to the deaths of John F Kennedy, Robert Kennedy and Martin Luther King Jr as part of another flurry of executive orders."
+    # text = "today is sunny"
     model = SummarizationModel(MODEL_NAME_BART, MODEL_PATH_BART, TOKENIZER_PATH_BART)
     summary = model.summarize_text(text)
 

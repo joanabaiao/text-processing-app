@@ -8,6 +8,7 @@ TOKENIZER_PATH_BART: str = "models/BART/tokenizer"
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME_BART)
 model = BartForConditionalGeneration.from_pretrained(MODEL_NAME_BART)
+model.config.forced_bos_token_id = 0
 
 tokenizer.save_pretrained(TOKENIZER_PATH_BART)
 model.save_pretrained(MODEL_PATH_BART)
