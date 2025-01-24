@@ -163,3 +163,4 @@ cython_debug/
 
 text_app_env
 models
+.DS_Store
