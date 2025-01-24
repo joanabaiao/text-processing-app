@@ -85,7 +85,9 @@ tasks = st.multiselect(
 
 input_text = st.text_area("Enter your text here:")
 
-if st.button("Process"):
+if st.button("Process", type="primary"):
+
+    st.markdown("----")
 
     ###################################################
     # SUMMARIZATION
@@ -94,10 +96,16 @@ if st.button("Process"):
 
         if input_text:
             # Summarize Text
-            # summary = summarizer(input_text, max_length=130, min_length=30, do_sample=False)
             st.subheader("Summary:")
             with st.spinner("Processing..."):
-                summary = sum_model.summarize_text(input_text)
+                input_length = len(input_text.split())
+                if input_length < 20:
+                    st.warning(
+                        f"Input is too small ({input_length} words). Returning original text."
+                    )
+                    summary = input_text
+                else:
+                    summary = sum_model.summarize_text(input_text)
                 st.write(summary)
         else:
             st.warning("Please enter text to summarize.")
