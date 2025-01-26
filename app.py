@@ -85,7 +85,7 @@ tasks = st.multiselect(
 
 input_text = st.text_area("Enter your text here:")
 
-if st.button("Process", type="primary"):
+if st.button("Process"):
 
     st.markdown("----")
 
