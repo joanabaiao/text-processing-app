@@ -29,7 +29,7 @@ class ParaphrasingModel:
             input_ids=inputs["input_ids"],
             attention_mask=inputs["attention_mask"],
             num_beams=4,
-            max_length=128,
+            max_length=512,  # 128; 256; 512
             early_stopping=True,
         )
 
